@@ -1,0 +1,77 @@
+{% extends "base.html" %} {% load static %} {% block title %}Home - Janki Sewa
+Sadan{% endblock %} {% block Doctor %}
+<section id="doctors" class="py-5 bg-white">
+  <div class="container">
+    <!-- Heading -->
+    <div class="text-center mb-5">
+      <h2 class="fw-bold mb-2">Our Expert Doctors 👨‍⚕️👩‍⚕️</h2>
+      <p class="text-muted">
+        Meet our team of highly qualified specialists delivering compassionate
+        care
+      </p>
+    </div>
+
+    <!-- Doctors Grid -->
+    {% if doctors %}
+    <div class="d-flex flex-wrap justify-content-center g-4">
+      {% for doctor in doctors %}
+      <div class="card shadow-sm border-0 rounded-3" style="width: 18rem">
+        <!-- Doctor Photo Centered -->
+        <div
+          class="d-flex justify-content-center align-items-center"
+          style="height: 250px; background: #f8f9fa"
+        >
+          <img
+            src="{% if doctor.photo %}{{ doctor.photo.url }}{% else %}{% static 'images/default_photo.png' %}{% endif %}"
+            alt="{{ doctor.name }}"
+            class="img-fluid"
+            style="max-height: 100%; max-width: 100%; object-fit: contain"
+          />
+        </div>
+
+        <!-- Doctor Info -->
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold">{{ doctor.name }}</h5>
+          <p class="text-muted mb-1">{{ doctor.specialization }}</p>
+          <p class="mb-0">
+            <i class="bi bi-geo-alt-fill text-primary"></i> Janki Sewa Sadan,
+            Petarwar
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <h3 class="text-center">Sorry, Doctors not Available!</h3>
+    {% endif %}
+  </div>
+</section>
+{% endblock %} {% block gallery %}
+<section id="gallery" class="py-5 bg-light">
+  <div class="container">
+    <h3 class="text-center mb-5 fw-bold"><u>Hospital Gallery</u></h3>
+
+    <div class="row g-3">
+      {% for photo in photos %}
+      <div class="col-6 col-md-3">
+        {% if photo.photo %}
+        <img
+          src="{{ photo.photo.url }}"
+          class="img-fluid rounded mb-3"
+          alt="Gallery Photo"
+        />
+        {% else %}
+        <img
+          src="{% static 'images/default_gallery.jpg' %}"
+          class="img-fluid rounded mb-3"
+          alt="Gallery Photo"
+        />
+        {% endif %}
+      </div>
+      {% empty %}
+      <p class="text-center">No photos uploaded yet!</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock gallery %}
